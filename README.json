@@ -1,0 +1,10 @@
+{
+    "name": "sel4_common",
+    "description": "Basic modules for building ReL4, defining common data structures and kernel configuration.",
+    "authors": [{
+      "name": "CtrlZ233",
+      "email": "ctrlz.donghai@gmail.com"
+    }],
+    "keywords": ["microkernel"],
+    "doc_url": "https://github.com/rel4team/sel4_common/blob/main/README.md"
+  }
