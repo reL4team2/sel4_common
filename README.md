@@ -1,1 +1,1 @@
-### Basic modules for building ReL4, defining common data structures and kernel configuration
+### Basic module for building ReL4, defining common data structures and kernel configuration
