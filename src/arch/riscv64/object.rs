@@ -1,4 +1,7 @@
-use crate::sel4_config::{seL4_HugePageBits, seL4_LargePageBits, seL4_PageBits, RISCV_4K_Page, RISCV_Giga_Page, RISCV_Mega_Page};
+use crate::sel4_config::{
+    seL4_HugePageBits, seL4_LargePageBits, seL4_PageBits, RISCV_4K_Page, RISCV_Giga_Page,
+    RISCV_Mega_Page,
+};
 
 #[derive(Debug, Clone, Copy, PartialEq, PartialOrd)]
 /// Represents the type of an object.

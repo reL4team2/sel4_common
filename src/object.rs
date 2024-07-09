@@ -37,7 +37,6 @@ impl ObjectType {
         }
     }
 
-
     /// Converts a usize value to an ObjectType.
     ///
     /// # Arguments

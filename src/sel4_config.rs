@@ -1,5 +1,5 @@
 //! This module contains the configuration settings for sel4_common.
-use crate::{BIT, MASK};
+use crate::BIT;
 
 pub const wordRadix: usize = 6;
 pub const wordBits: usize = BIT!(wordRadix);
@@ -56,17 +56,6 @@ pub const asidInvalid: usize = 0;
 pub const nASIDPools: usize = BIT!(asidHighBits);
 pub const ASID_BITS: usize = asidHighBits + asidLowBits;
 pub const IT_ASID: usize = 1;
-
-// boot 相关的常数
-pub const PPTR_TOP: usize = 0xFFFFFFFF80000000;
-pub const physBase: usize = 0x80000000;
-pub const KERNEL_ELF_PADDR_BASE: usize = physBase + 0x4000000;
-pub const KERNEL_ELF_BASE: usize = PPTR_TOP + (KERNEL_ELF_PADDR_BASE & MASK!(30));
-pub const KERNEL_ELF_BASE_OFFSET: usize = KERNEL_ELF_BASE - KERNEL_ELF_PADDR_BASE;
-pub const PPTR_BASE: usize = 0xFFFFFFC000000000;
-pub const PADDR_BASE: usize = 0x0;
-pub const PPTR_BASE_OFFSET: usize = PPTR_BASE - PADDR_BASE;
-pub const PADDR_TOP: usize = PPTR_TOP - PPTR_BASE_OFFSET;
 
 // scheduler relevant
 pub const CONFIG_NUM_DOMAINS: usize = 1;
