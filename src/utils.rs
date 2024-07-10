@@ -120,6 +120,12 @@ pub fn convert_to_mut_type_ref<T>(addr: usize) -> &'static mut T {
 }
 
 #[inline]
+pub fn convert_to_mut_type_ptr<T>(addr: usize) -> *mut T {
+    assert_ne!(addr, 0);
+    unsafe { &mut *(addr as *mut T) as *mut T }
+}
+
+#[inline]
 pub fn convert_to_mut_type_ref_unsafe<T>(addr: usize) -> &'static mut T {
     unsafe { &mut *(addr as *mut T) }
 }
