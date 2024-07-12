@@ -13,6 +13,7 @@ pub const seL4_MaxUntypedBits: usize = 38;
 // page table relevant
 pub const PT_SIZE_BITS: usize = 12;
 pub const PAGE_BITS: usize = seL4_PageBits;
+pub const PAGE_PT_ITEMS: usize = 0x200;
 pub const RISCV_4K_Page: usize = 0;
 pub const RISCV_Mega_Page: usize = 1;
 pub const RISCV_Giga_Page: usize = 2;

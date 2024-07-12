@@ -78,8 +78,16 @@ pub macro ffi_call {
                 fn $fname($($aname:$t),*) -> $r;
             }
             unsafe {
-                $fname($($v),*);
+                $fname($($v),*)
             }
         }
     },
 }
+
+/// The ffi_addr get the address of the ffi function.
+pub macro ffi_addr($fname:ident) {{
+    extern "C" {
+        fn $fname();
+    }
+    $fname as usize
+}}

@@ -49,6 +49,7 @@ impl ArchTCB {
 /// Arch Register Shared part
 /// If not shared. Just Write in the [arch] module.
 #[repr(usize)]
+#[derive(Debug, Clone)]
 pub enum ArchReg {
     /// Generic registers
     TlsBase,

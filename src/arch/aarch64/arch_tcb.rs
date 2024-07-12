@@ -11,7 +11,7 @@ pub struct ArchTCB {
 impl Default for ArchTCB {
     fn default() -> Self {
         let mut registers = [0; CONTEXT_REG_NUM];
-        registers[SPSR_EL1] = (1 << 6) | 5 | (1 << 8);
+        registers[SPSR_EL1] = (1 << 6) | 0 | (1 << 8);
         Self { registers }
     }
 }

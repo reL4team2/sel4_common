@@ -79,12 +79,12 @@ impl ArchReg {
     /// Convert Enum to register index.
     pub const fn to_index(&self) -> usize {
         match self {
-            ArchReg::TlsBase => 3,
-            ArchReg::Cap => 9,
-            ArchReg::Badge => 9,
-            ArchReg::MsgInfo => 10,
-            ArchReg::FaultIP => 33,
-            ArchReg::NextIP => 34,
+            ArchReg::TlsBase => 35,
+            ArchReg::Cap => 0,
+            ArchReg::Badge => 0,
+            ArchReg::MsgInfo => 1,
+            ArchReg::FaultIP => 34,
+            ArchReg::NextIP => 32,
             ArchReg::Msg(i) => msgRegister[*i as usize],
             ArchReg::Frame(i) => frameRegisters[*i as usize],
             ArchReg::GP(i) => gpRegisters[*i as usize],

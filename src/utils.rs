@@ -1,4 +1,6 @@
 //! Utility functions and macros.
+use core::slice;
+
 use crate::sel4_config::*;
 #[macro_export]
 /// Define a bitfield struct with the given name, total words, type index, type offset, type bits, and a list of variants.
@@ -27,10 +29,15 @@ macro_rules! plus_define_bitfield {
 
                 $(
                     #[inline]
-                    pub fn $get_field(&self) -> usize {
+                    pub const fn $get_field(&self) -> usize {
                         let mask = ((1u128 << $bits) - 1) as usize;
                         let mut ret = ((self.words[$index] >> $offset) & mask) << $shift;
+                        #[cfg(target_arch = "riscv64")]
                         if $sign_ext && (ret & (1usize << 38)) != 0 {
+                            ret |= 0xffffff8000000000;
+                        }
+                        #[cfg(target_arch = "aarch64")]
+                        if $sign_ext && (ret & (1usize << 47)) != 0 {
                             ret |= 0xffffff8000000000;
                         }
                         ret
@@ -122,7 +129,7 @@ pub fn convert_to_mut_type_ref<T>(addr: usize) -> &'static mut T {
 #[inline]
 pub fn convert_to_mut_type_ptr<T>(addr: usize) -> *mut T {
     assert_ne!(addr, 0);
-    unsafe { &mut *(addr as *mut T) as *mut T }
+    addr as *mut T
 }
 
 #[inline]
@@ -144,6 +151,15 @@ pub fn convert_to_option_mut_type_ref<T>(addr: usize) -> Option<&'static mut T> 
         return None;
     }
     Some(convert_to_mut_type_ref::<T>(addr))
+}
+
+/// Get the slice through passed arguments
+///
+/// addr: The address of the slice
+/// len: The length of the slice
+#[inline]
+pub fn convert_to_mut_slice<T>(addr: usize, len: usize) -> &'static mut [T] {
+    unsafe { slice::from_raw_parts_mut(addr as _, len) }
 }
 
 #[inline]

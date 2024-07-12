@@ -1,5 +1,3 @@
-use crate::MASK;
-
 // boot 相关的常数
 pub const PPTR_TOP: usize = 0xffffffffc0000000;
 pub const physBase: usize = 0x4000_0000;
