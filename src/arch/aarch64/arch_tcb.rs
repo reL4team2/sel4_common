@@ -14,11 +14,19 @@ macro_rules! mrs {
     };
 }
 
+#[repr(C)]
+#[derive(Debug, Clone)]
+pub struct FPUState {
+    vregs: [usize; 64],
+    fpsr: u32,
+    fpcr: u32,
+}
 /// This is `arch_tcb_t` in the sel4_c_impl.
 #[repr(C)]
-#[derive(Debug, PartialEq, Clone, Copy)]
+#[derive(Debug, Clone)]
 pub struct ArchTCB {
     pub(in crate::arch) registers: [usize; CONTEXT_REG_NUM],
+    pub(in crate::arch) fpu: FPUState,
 }
 
 /// Implements the Default for the `ArchTCB`
@@ -26,7 +34,14 @@ impl Default for ArchTCB {
     fn default() -> Self {
         let mut registers = [0; CONTEXT_REG_NUM];
         registers[SPSR_EL1] = (1 << 6) | 0 | (1 << 8);
-        Self { registers }
+        Self {
+            registers,
+            fpu: FPUState {
+                vregs: [0; 64],
+                fpsr: 0,
+                fpcr: 0,
+            },
+        }
     }
 }
 impl ArchTCB {

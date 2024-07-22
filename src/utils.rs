@@ -14,6 +14,7 @@ macro_rules! plus_define_bitfield {
         }
 
         impl $name {
+            pub const WIDTH: usize = $total_words;
             $(
                 #[inline]
                 pub fn $variant($($field: usize),*) -> Self {
@@ -38,7 +39,7 @@ macro_rules! plus_define_bitfield {
                         }
                         #[cfg(target_arch = "aarch64")]
                         if $sign_ext && (ret & (1usize << 47)) != 0 {
-                            ret |= 0xffffff8000000000;
+                            ret |= 0xffff800000000000;
                         }
                         ret
                     }
@@ -104,6 +105,19 @@ macro_rules! BIT {
     }
 }
 
+/// Get the global variable.
+/// WARN: But on smp, need to becareful to use this macro.
+/// TODO: Write macro ffi_set or other functions to set the global variable
+#[cfg(not(feature = "SMP"))]
+pub macro global_read($name: ident) {
+    unsafe { $name }
+}
+
+#[cfg(not(feature = "SMP"))]
+pub macro global_ops($expr: expr) {
+    unsafe { $expr }
+}
+
 #[inline]
 pub fn MAX_FREE_INDEX(bits: usize) -> usize {
     BIT!(bits - seL4_MinUntypedBits)
@@ -160,6 +174,18 @@ pub fn convert_to_option_mut_type_ref<T>(addr: usize) -> Option<&'static mut T> 
 #[inline]
 pub fn convert_to_mut_slice<T>(addr: usize, len: usize) -> &'static mut [T] {
     unsafe { slice::from_raw_parts_mut(addr as _, len) }
+}
+
+/// Convert a ptr to a reference
+#[inline]
+pub fn ptr_to_ref<T>(ptr: *const T) -> &'static T {
+    unsafe { ptr.as_ref().unwrap() }
+}
+
+/// Convert a ptr to a mutable reference
+#[inline]
+pub fn ptr_to_mut<T>(ptr: *mut T) -> &'static mut T {
+    unsafe { ptr.as_mut().unwrap() }
 }
 
 #[inline]

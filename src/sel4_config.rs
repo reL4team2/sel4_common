@@ -48,7 +48,8 @@ pub const seL4_LargePageBits: usize = 21;
 pub const PT_INDEX_OFFSET: usize = seL4_PageBits;
 pub const PD_INDEX_OFFSET: usize = PT_INDEX_OFFSET + PT_INDEX_BITS;
 pub const PUD_INDEX_OFFSET: usize = PD_INDEX_OFFSET + PD_INDEX_BITS;
-pub const PGD_INDEX_OFFSET: usize = PD_INDEX_OFFSET + PD_INDEX_BITS;
+// FIXED: PGD_INDEX_OFFSET should be PUD_INDEX_OFFSET + PUD_INDEX_BITS
+pub const PGD_INDEX_OFFSET: usize = PUD_INDEX_OFFSET + PUD_INDEX_BITS;
 
 // ASID relevant
 pub const asidLowBits: usize = 9;

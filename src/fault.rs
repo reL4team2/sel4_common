@@ -19,6 +19,7 @@
 //!
 use crate::plus_define_bitfield;
 
+#[cfg(target_arch = "riscv64")]
 plus_define_bitfield! {
     seL4_Fault_t, 2, 0, 0, 4 => {
         new_null_fault, seL4_Fault_NullFault => {},
@@ -36,6 +37,30 @@ plus_define_bitfield! {
         new_vm_fault, seL4_Fault_VMFault => {
             address, vm_fault_get_address, vm_fault_set_address, 1, 0, 64, 0, false,
             fsr, vm_fault_get_fsr, vm_fault_set_fsr, 0, 27, 5, 0, false,
+            instruction_fault, vm_fault_get_instruction_fault, vm_fault_set_instruction_fault, 0, 19, 1, 0, false
+        }
+    }
+}
+
+// TODO: Improve seL4_fault_T type
+#[cfg(target_arch = "aarch64")]
+plus_define_bitfield! {
+    seL4_Fault_t, 5, 0, 0, 4 => {
+        new_null_fault, seL4_Fault_NullFault => {},
+        new_cap_fault, seL4_Fault_CapFault => {
+            address, cap_fault_get_address, cap_fault_set_address, 1, 0, 64, 0, false,
+            in_receive_phase, cap_fault_get_in_receive_phase, cap_fault_set_in_receive_phase, 0, 63, 1, 0, false
+        },
+        new_unknown_syscall_fault, seL4_Fault_UnknownSyscall => {
+            syscall_number, unknown_syscall_get_syscall_number, unknown_syscall_set_syscall_number, 1, 0, 64, 0, false
+        },
+        new_user_exeception, seL4_Fault_UserException => {
+            number, user_exeception_get_number, user_exeception_set_number, 0, 32, 32, 0, false,
+            code, user_exeception_get_code, user_exeception_set_code, 0, 4, 28, 0, false
+        },
+        new_vm_fault, seL4_Fault_VMFault => {
+            address, vm_fault_get_address, vm_fault_set_address, 2, 0, 64, 0, false,
+            fsr, vm_fault_get_fsr, vm_fault_set_fsr, 1, 0, 64, 0, false,
             instruction_fault, vm_fault_get_instruction_fault, vm_fault_set_instruction_fault, 0, 19, 1, 0, false
         }
     }
@@ -79,7 +104,7 @@ pub const seL4_CapFault_GuardMismatch_GuardFound: usize = seL4_CapFault_DepthMis
 pub const seL4_CapFault_GuardMismatch_BitsFound: usize = 6;
 
 // lookup_fault
-#[derive(PartialEq, Eq)]
+#[derive(PartialEq, Eq, Debug)]
 pub enum LookupFaultType {
     InvaildRoot = 0,
     MissingCap = 1,

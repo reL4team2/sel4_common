@@ -9,8 +9,9 @@ use super::sel4_config::*;
 
 #[cfg(target_arch = "riscv64")]
 pub const seL4_ObjectTypeCount: usize = ObjectType::PageTableObject as usize + 1;
+// FIXED: Need to add 1 to cover all possible object types
 #[cfg(any(target_arch = "aarch64", test))]
-pub const seL4_ObjectTypeCount: usize = ObjectType::seL4_ARM_PageDirectoryObject as usize;
+pub const seL4_ObjectTypeCount: usize = ObjectType::seL4_ARM_PageDirectoryObject as usize + 1;
 pub const seL4_NonArchObjectTypeCount: usize = ObjectType::CapTableObject as usize + 1;
 
 impl ObjectType {
