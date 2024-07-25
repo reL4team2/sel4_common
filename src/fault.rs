@@ -43,6 +43,8 @@ plus_define_bitfield! {
 }
 
 // TODO: Improve seL4_fault_T type
+// TIPS: This sel4_fault was defined in bitfield file(2words).
+//       sel4_c_impl/include/arch/arm/arch/64/mode/object/structures.bf: VMFault
 #[cfg(target_arch = "aarch64")]
 plus_define_bitfield! {
     seL4_Fault_t, 5, 0, 0, 4 => {
@@ -59,9 +61,9 @@ plus_define_bitfield! {
             code, user_exeception_get_code, user_exeception_set_code, 0, 4, 28, 0, false
         },
         new_vm_fault, seL4_Fault_VMFault => {
-            address, vm_fault_get_address, vm_fault_set_address, 2, 0, 64, 0, false,
-            fsr, vm_fault_get_fsr, vm_fault_set_fsr, 1, 0, 64, 0, false,
-            instruction_fault, vm_fault_get_instruction_fault, vm_fault_set_instruction_fault, 0, 19, 1, 0, false
+            address, vm_fault_get_address, vm_fault_set_address, 1, 0, 64, 0, false,
+            fsr, vm_fault_get_fsr, vm_fault_set_fsr, 0, 32, 32, 0, false,
+            instruction_fault, vm_fault_get_instruction_fault, vm_fault_set_instruction_fault, 0, 31, 1, 0, false
         }
     }
 }

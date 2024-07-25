@@ -33,7 +33,7 @@ pub fn get_currenct_cpu_index() -> usize {
         "csrr {}, sscratch",
         out(reg) cur_sp,
         );
-        cur_sp -= kernel_stack_alloc as usize + 8;
+        cur_sp -= unsafe { &kernel_stack_alloc.data[0][0] as *const u8 } as usize + 8;
         cur_sp >> CONFIG_KERNEL_STACK_BITS
     }
     #[cfg(target_arch = "aarch64")]

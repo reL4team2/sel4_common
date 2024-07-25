@@ -10,7 +10,7 @@ pub mod arch;
 pub mod cap_rights;
 pub mod console;
 pub mod fault;
-mod ffi;
+pub mod ffi;
 pub mod logging;
 pub mod message_info;
 pub mod object;
