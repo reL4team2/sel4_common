@@ -1,3 +1,5 @@
+use core::arch::asm;
+
 use super::{CONTEXT_REG_NUM, ELR_EL1, SPSR_EL1, TLS_BASE, TPIDRRO_EL0, TPIDR_EL0};
 
 /// Get value from the system register
@@ -56,5 +58,12 @@ impl ArchTCB {
     pub fn save_thread_local(&mut self) {
         self.registers[TPIDR_EL0] = mrs!("tpidr_el0");
         self.registers[TPIDRRO_EL0] = mrs!("tpidrro_el0");
+    }
+    #[inline]
+    pub fn load_thread_local(&mut self) {
+        unsafe {
+            asm!("msr tpidr_el0,{}", in(reg) self.registers[TPIDR_EL0]);
+            asm!("msr tpidrro_el0,{}", in(reg) self.registers[TPIDRRO_EL0]);
+        }
     }
 }
