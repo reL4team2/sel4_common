@@ -59,6 +59,6 @@ impl seL4_MessageInfo_t {
     /// Gets the label of the message.
     #[inline]
     pub fn get_label(&self) -> MessageLabel {
-        unsafe { core::mem::transmute::<u8, MessageLabel>(self.get_usize_label() as u8) }
+        unsafe { core::mem::transmute::<u32, MessageLabel>(self.get_usize_label() as u32) }
     }
 }

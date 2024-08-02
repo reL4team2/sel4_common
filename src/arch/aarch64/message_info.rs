@@ -1,5 +1,6 @@
 #[derive(Eq, PartialEq, Debug, Clone, Copy, PartialOrd, Ord)]
 /// The label of a message.
+#[repr(C)]
 pub enum MessageLabel {
     InvalidInvocation = 0,
     UntypedRetype,
