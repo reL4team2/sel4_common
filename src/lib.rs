@@ -5,7 +5,8 @@
 #![allow(non_snake_case)]
 #![allow(non_camel_case_types)]
 #![allow(non_upper_case_globals)]
-
+#![allow(clippy::enum_clike_unportable_variant)]
+#![allow(clippy::not_unsafe_ptr_arg_deref)]
 pub mod arch;
 pub mod cap_rights;
 pub mod console;
