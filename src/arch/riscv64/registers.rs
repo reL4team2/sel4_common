@@ -78,9 +78,9 @@ impl ArchReg {
             ArchReg::MsgInfo => 10,
             ArchReg::FaultIP => 33,
             ArchReg::NextIP => 34,
-            ArchReg::Msg(i) => msgRegister[*i as usize],
-            ArchReg::Frame(i) => frameRegisters[*i as usize],
-            ArchReg::GP(i) => gpRegisters[*i as usize],
+            ArchReg::Msg(i) => msgRegister[*i],
+            ArchReg::Frame(i) => frameRegisters[*i],
+            ArchReg::GP(i) => gpRegisters[*i],
             ArchReg::FaultMessage(id, index) => fault_messages[*id][*index],
         }
     }

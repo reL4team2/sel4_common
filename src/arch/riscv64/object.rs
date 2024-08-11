@@ -51,9 +51,9 @@ impl ObjectType {
     ///
     /// true if the object type is an architecture-specific type, false otherwise.
     pub fn is_arch_type(self) -> bool {
-        match self {
-            Self::GigaPageObject | Self::NormalPageObject | Self::MegaPageObject => true,
-            _ => false,
-        }
+        matches!(
+            self,
+            Self::GigaPageObject | Self::NormalPageObject | Self::MegaPageObject
+        )
     }
 }

@@ -10,12 +10,12 @@ pub enum vm_rights_t {
 
 ///判断应用程序是否要求页面可写
 pub fn RISCVGetWriteFromVMRights(vm_rights: &vm_rights_t) -> bool {
-    return *vm_rights == vm_rights_t::VMReadWrite;
+    *vm_rights == vm_rights_t::VMReadWrite
 }
 
 ///判断应用程序是否要求页面可读
 pub fn RISCVGetReadFromVMRights(vm_rights: &vm_rights_t) -> bool {
-    return *vm_rights != vm_rights_t::VMKernelOnly;
+    *vm_rights != vm_rights_t::VMKernelOnly
 }
 
 /// 当进行进行`map`操作时，会检查应用程序希望获得的读写权限与`frame`本身拥有的权限，

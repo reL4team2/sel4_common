@@ -55,15 +55,15 @@ impl ObjectType {
     ///
     /// true if the object type is an architecture-specific type, false otherwise.
     pub fn is_arch_type(self) -> bool {
-        match self {
+        matches!(
+            self,
             Self::seL4_ARM_HugePageObject
-            | Self::seL4_ARM_PageUpperDirectoryObject
-            | Self::seL4_ARM_PageGlobalDirectoryObject
-            | Self::seL4_ARM_SmallPageObject
-            | Self::seL4_ARM_LargePageObject
-            | Self::seL4_ARM_PageTableObject
-            | Self::seL4_ARM_PageDirectoryObject => true,
-            _ => false,
-        }
+                | Self::seL4_ARM_PageUpperDirectoryObject
+                | Self::seL4_ARM_PageGlobalDirectoryObject
+                | Self::seL4_ARM_SmallPageObject
+                | Self::seL4_ARM_LargePageObject
+                | Self::seL4_ARM_PageTableObject
+                | Self::seL4_ARM_PageDirectoryObject
+        )
     }
 }

@@ -3,6 +3,7 @@
 //! The `exception_t` enum represents the different types of exceptions in the system.
 use super::sel4_config::*;
 
+const PADDING_VALUE: isize = isize::MAX - 1;
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 /// Represents the different types of exceptions in the system.
@@ -12,7 +13,7 @@ pub enum exception_t {
     EXCEPTION_LOOKUP_FAULT,
     EXCEPTION_SYSCALL_ERROR,
     EXCEPTION_PREEMTED,
-    padding = isize::MAX - 1,
+    padding = PADDING_VALUE,
 }
 
 #[repr(C)]
